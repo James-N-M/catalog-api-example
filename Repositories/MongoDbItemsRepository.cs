@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using CatalogApi.Models;
 using MongoDB.Driver;
+using MongoDB.Bson;
 
 namespace CatalogApi.Repositories
 {
@@ -40,7 +41,7 @@ namespace CatalogApi.Repositories
 
         public IEnumerable<Item> GetItems() 
         {
-            return new List<Item>();
+            return itemsCollection.Find(new BsonDocument()).ToList();
         }
     }
 }
