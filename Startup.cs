@@ -43,7 +43,10 @@ namespace CatalogApi
 
             services.AddSingleton<IItemsRepository, MongoDbItemsRepository>();
 
-            services.AddControllers();
+            // How to deal with async suffix issue 
+            services.AddControllers(options => {
+                options.SuppressAsyncSuffixInActionNames = false;
+            });
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "CatalogApi", Version = "v1" });
