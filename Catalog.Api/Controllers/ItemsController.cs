@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using CatalogApi.Repositories;
-using CatalogApi.Models;
-using CatalogApi.Dtos;
+using Catalog.Api.Repositories;
+using Catalog.Api.Models;
+using Catalog.Api.Dtos;
 
-namespace CatalogApi.Controllers
+namespace Catalog.Api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]

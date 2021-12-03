@@ -2,10 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using CatalogApi.Dtos;
-using CatalogApi.Models;
+using Catalog.Api.Dtos;
+using Catalog.Api.Models;
 
-namespace CatalogApi
+namespace Catalog.Api
 {
     public static class Extensions
     {

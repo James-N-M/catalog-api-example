@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
-using CatalogApi.Models;
+using Catalog.Api.Models;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace CatalogApi.Repositories
+namespace Catalog.Api.Repositories
 {
     // I commented out this class because it no longer implements the interface
     // but its a good reference for how to mock out a repo and a database when

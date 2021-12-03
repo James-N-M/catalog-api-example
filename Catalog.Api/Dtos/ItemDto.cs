@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace CatalogApi.Models
+namespace Catalog.Api.Dtos
 {
-    public record Item
+    public record ItemDto
     {
         public Guid Id { get; init; }
         public string Name { get; init; }
@@ -13,7 +13,3 @@ namespace CatalogApi.Models
         public DateTimeOffset CreatedDate { get; init; }
     }
 }
-// records are immutable objects
-// with expressions support 
-// value based equality support 
-// set vs init property initalizer only allow setting value during initalization

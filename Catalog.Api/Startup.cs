@@ -11,14 +11,14 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
-using CatalogApi.Repositories;
+using Catalog.Api.Repositories;
 using MongoDB.Driver;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Serializers;
 using MongoDB.Bson;
-using CatalogApi.Settings;
+using Catalog.Api.Settings;
 
-namespace CatalogApi
+namespace Catalog.Api
 {
     public class Startup
     {
