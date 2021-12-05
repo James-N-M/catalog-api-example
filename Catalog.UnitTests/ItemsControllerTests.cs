@@ -7,6 +7,7 @@ using Catalog.Api.Controllers;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Catalog.Api.Dtos;
+using FluentAssertions;
 
 namespace Catalog.UnitTests
 {
@@ -32,7 +33,7 @@ namespace Catalog.UnitTests
             var result = await controller.GetItemAsync(Guid.NewGuid());
 
             // Assert 
-            Assert.IsType<NotFoundResult>(result.Result);
+            result.Result.Should().BeOfType<NotFoundResult>();
         }
 
         [Fact]
@@ -50,10 +51,29 @@ namespace Catalog.UnitTests
             var result = await controller.GetItemAsync(Guid.NewGuid());
 
             // Assert 
-            Assert.IsType<ItemDto>(result.Value);
-            var dto = (result as ActionResult<ItemDto>).Value;
-            Assert.Equal(expectedItem.Id, dto.Id);
-            Assert.Equal(expectedItem.Name, dto.Name);
+            result.Value.Should().BeEquivalentTo(
+                expectedItem,
+                options => options.ComparingByMembers<Item>());
+        }
+
+        [Fact]
+        public async Task GetItemsAsync_WithExistingItems_ReturnsAllItems()
+        {
+            // Arrange 
+            var expectedItems = new[] { CreateRandomItem(), CreateRandomItem(), CreateRandomItem() };
+
+            repositoryStub.Setup(repo => repo.GetItemsAsync())
+                .ReturnsAsync(expectedItems);
+            
+            var controller = new ItemsController(repositoryStub.Object);
+
+            // Act 
+            var actualItems = await controller.GetItemsAsync();
+
+            // Assert 
+            actualItems.Should().BeEquivalentTo(
+                expectedItems,
+                options => options.ComparingByMembers<Item>());
         }
 
         private Item CreateRandomItem() 
