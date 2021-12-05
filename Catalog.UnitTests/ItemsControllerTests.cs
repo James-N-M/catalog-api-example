@@ -125,6 +125,24 @@ namespace Catalog.UnitTests
             result.Should().BeOfType<NoContentResult>();
         }
 
+        [Fact]
+        public async Task DeleteItemAsync_WithExistingItem_ReturnsNoContent()
+        {
+            // Arrange
+            Item existingItem = CreateRandomItem();
+
+            repositoryStub.Setup(repo => repo.GetItemAsync(It.IsAny<Guid>()))
+                .ReturnsAsync(existingItem);
+            
+            // Act 
+            var controller = new ItemsController(repositoryStub.Object);
+
+            var result = await controller.DeleteItemAsync(existingItem.Id);
+
+            // Assert 
+            result.Should().BeOfType<NoContentResult>();
+        }
+
         private Item CreateRandomItem() 
         {
             return new() 
