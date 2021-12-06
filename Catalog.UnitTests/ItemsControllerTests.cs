@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Catalog.Api.Dtos;
 using FluentAssertions;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace Catalog.UnitTests
 {
@@ -52,6 +54,31 @@ namespace Catalog.UnitTests
 
             // Assert 
             result.Value.Should().BeEquivalentTo(expectedItem);
+        }
+
+        [Fact]
+        public async Task GetItemsAsync_SearchByName_ReturnsItemsWithName()
+        {
+            var allItems = new []
+            {
+                new Item() { Name = "Potion" },
+                new Item() { Name = "Antidote" },
+                new Item() { Name = "Hi-Potion" },
+            };
+
+            var nameToMatch = "Potion";
+
+            repositoryStub.Setup(repo => repo.GetItemsAsync())
+                .ReturnsAsync(allItems);
+
+            var controller = new ItemsController(repositoryStub.Object);
+
+            // Act 
+            IEnumerable<ItemDto> foundItems = await controller.GetItemsAsync(nameToMatch);
+
+            foundItems.Should().OnlyContain(
+                item => item.Name == allItems[0].Name || item.Name == allItems[2].Name
+            );
         }
 
         [Fact]
